@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.harit.tasks.helpers.EnumValidator;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,7 +35,17 @@ public class Task {
 	@Column(name="create_date", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Instant create_date;
 	
-	private String status;
+	@EnumValidator(
+		     enumClass= TaskStatus.class,
+		     message = "Incorrect Project Type!! Try: NotStarted, Backlog, InProgress, Stalled, Completed, Cancelled"
+		 )
+	private String task_status;
+	
+	@EnumValidator(
+		     enumClass= TaskType.class,
+		     message = "Incorrect Project Type!! Try: AppBuilding, MachineLearning, Documentation, BugFixing, RiskHandling"
+		 )
+	private String task_type;
 	
 	@OneToMany
 	private List<Comments> comments;
