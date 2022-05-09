@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.harit.tasks.helpers.EnumValidator;
 
@@ -27,6 +29,10 @@ public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long task_id;
+	
+	@NotNull
+	@NotEmpty
+	private String task_name;
 	
 	@ManyToOne
 	@JoinColumn(name="project_id", nullable=false)
