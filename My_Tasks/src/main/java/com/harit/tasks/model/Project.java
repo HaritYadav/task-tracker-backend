@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.harit.tasks.helpers.EnumValidator;
 
 import lombok.AllArgsConstructor;
@@ -26,30 +28,35 @@ public class Project {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long project_id;
+	private Long projectId;
 	
 	@NotNull
 	@NotEmpty
-	private String project_name;
+	private String projectName;
 	
+	@CreationTimestamp
 	@Column(name="create_date", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private Instant create_date;
+	private Instant createDate;
 	
-	private Instant complete_date;
+	@Column(name="complete_date")
+	private Instant completeDate;
+	
+	@Column(columnDefinition="varchar(255)")
+	private String creator = "Harit";
 	
 	@OneToMany
-	private List<Task> task_list;
+	private List<Task> taskList;
 	
 	@EnumValidator(
 		     enumClass= ProjectStatus.class,
 		     message = "Incorrect Project Type!! Try: Inspiration, Ideation, Implementation"
 		 )
-	private String project_status;
+	private String projectStatus;
 	
 	@EnumValidator(
 	     enumClass= ProjectType.class,
 	     message = "Incorrect Project Type!! Try: Development, Learning, BAU, Maintenance"
 		)
-	private String project_type;
+	private String projectType;
 	
 }
